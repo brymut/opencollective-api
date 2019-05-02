@@ -5,7 +5,6 @@ import errors from '../../lib/errors';
 import * as graphqlErrors from '../errors';
 import { parseToBoolean } from '../../lib/utils';
 import { fetchLedgerTransactionsGroupedByLegacyIds, parseLedgerTransactions } from '../../lib/ledger';
-import DbQueries from '../../lib/queries';
 
 import { GraphQLList, GraphQLNonNull, GraphQLString, GraphQLInt, GraphQLBoolean } from 'graphql';
 
@@ -988,7 +987,7 @@ const queries = {
    */
   allCollectiveTags: {
     type: new GraphQLList(GraphQLString),
-    resolve: DbQueries.getUniqueCollectiveTags,
+    resolve: rawQueries.getUniqueCollectiveTags,
   },
 
   /*
