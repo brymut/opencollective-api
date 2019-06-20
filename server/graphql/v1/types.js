@@ -678,7 +678,7 @@ export const ExpenseType = new GraphQLObjectType({
       },
       fromCollective: {
         type: CollectiveInterfaceType,
-        resolve(expense) {
+        resolve(expense, args, req) {
           return expense.getUser().then(u => {
             if (!u) {
               return console.error(
@@ -687,7 +687,7 @@ export const ExpenseType = new GraphQLObjectType({
                 } -- has the user been deleted?`,
               );
             }
-            return models.Collective.findByPk(u.CollectiveId);
+            return req.loaders.Collective.byId.load(u.CollectiveId);
           });
         },
       },
